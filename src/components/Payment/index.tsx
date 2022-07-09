@@ -15,7 +15,7 @@ const Payment: React.FC = () => {
         <button
           className="btn btn-warning"
           type="submit"
-        /* onClick={() =>
+          /* onClick={() =>
       setBankSplit(false)
     }  {showBankSplit ? 'show' : ''} */
         >
