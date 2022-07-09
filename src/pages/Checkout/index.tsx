@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
-import { Link, useParams } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { useVehicles } from 'context/BaseContext';
 
@@ -14,6 +15,12 @@ import loading from '../../assets/loading.gif';
 const Checkout: React.FC = () => {
   const { isLoading, getVehicle } = useVehicles();
   const { name } = useParams();
+  const { handleSubmit } = useForm();
+  const navigate = useNavigate();
+
+  const onSubmit = useCallback(() => {
+    navigate('/confirmation');
+  }, [navigate]);
 
   useEffect(() => {
     getVehicle(name ?? '');
@@ -29,7 +36,10 @@ const Checkout: React.FC = () => {
         ) : (
           <>
             <PageTitle title="Checkout" />
-            <div className="row row-cols-1 row-cols-sm-0 row-cols-md-1 row-cols-lg-1 row-cols-xl-12 py-3">
+            <form
+              className="row row-cols-1 row-cols-sm-0 row-cols-md-1 row-cols-lg-1 row-cols-xl-12 py-3"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <div className="col d-flex">
                 <div className="col">
                   <PersonalInfo />
@@ -40,15 +50,13 @@ const Checkout: React.FC = () => {
                 <div className="col">
                   <Payment />
                   <div>
-                    <Link to="/confirmation">
-                      <button type="submit" className="btn btn-warning w-100">
-                        Finalizar compra
-                      </button>
-                    </Link>
+                    <button type="submit" className="btn btn-warning w-100">
+                      Finalizar compra
+                    </button>
                   </div>
                 </div>
               </div>
-            </div>
+            </form>
           </>
         )}
       </div>

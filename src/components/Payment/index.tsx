@@ -1,44 +1,33 @@
-import { useCallback } from 'react';
-
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-
+/* eslint-disable prettier/prettier */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-type FormDataType = {
-  email: string;
-};
+// import { useState } from 'react';
 
 const Payment: React.FC = () => {
-  const { handleSubmit } = useForm<FormDataType>();
-
-  const onSubmit = useCallback((data: FormDataType) => {
-    login(data.email);
-  }, []);
+  // const [showBankSplit, setShowBankSplit] = useState(false);
 
   return (
-    <form className="col card bg-black p-3">
-      onSubmit={handleSubmit(onSubmit)}
+    <form className="card bg-black p-3">
       <h3 className="text-warning fs-5">Forma de Pagamento</h3>
       <div className="col">
-        <button type="submit" className="btn btn-warning me-3">
-          Cartão de Crédito
+        <div className="btn btn-warning me-3">Cartão de Crédito</div>
+
+        <button
+          className="btn btn-warning"
+          type="submit"
+        /* onClick={() =>
+      setBankSplit(false)
+    }  {showBankSplit ? 'show' : ''} */
+        >
+          Boleto Bancário
         </button>
-        <Link to="/banksplitconfirmation">
-          <button type="submit" className="btn btn-warning">
-            Boleto Bancário
-          </button>
-        </Link>
       </div>
       <div className="col text-white mt-2">
-        <label htmlFor="inputAddress" className="form-label">
-          Nome do titular do cartão
-        </label>
+        <label className="form-label">Nome do titular do cartão</label>
         <input
           type="text"
-          className="form-control bg-secondary border-secondary"
-          id="inputAddress"
           required
+          className="form-control bg-secondary border-secondary"
         />
       </div>
       <div className="col text-white mt-2">
@@ -47,9 +36,8 @@ const Payment: React.FC = () => {
         </label>
         <input
           type="number"
-          className="form-control bg-secondary border-secondary"
-          id="inputAddress"
           required
+          className="form-control bg-secondary border-secondary"
         />
       </div>
       <div className="col text-white d-flex mt-2">
@@ -58,10 +46,9 @@ const Payment: React.FC = () => {
             Validade
           </label>
           <input
-            type="email"
-            className="form-control border-secondary bg-secondary"
-            id="inputEmail4"
+            type="text"
             required
+            className="form-control border-secondary bg-secondary"
           />
         </div>
         <div>
@@ -69,14 +56,37 @@ const Payment: React.FC = () => {
             Código de segurança
           </label>
           <input
-            type="email"
-            className="form-control border-secondary bg-secondary"
-            id="inputEmail4"
+            type="number"
             required
+            className="form-control border-secondary bg-secondary"
           />
         </div>
       </div>
+      <div />
     </form>
+
+    /* <div className="bg-secondary">
+    <div className="container">
+      {isLoading ? (
+        <img className="p-5 m-5" src={loading} alt="Loading" />
+      ) : (
+
+        <>   
+          <button
+            className="btn btn-warning"
+            type="submit"
+            onClick={() => setShowBankSplit(!showBankSplit)}  
+          >
+            Boleto Bancário
+          </button>
+
+          <PageTitle title="Confirmação" />
+          <div className="row" />
+          <OrderSuccessfullyCard />
+        </>
+      )}
+    </div>
+    </div> */
   );
 };
 

@@ -11,6 +11,7 @@ const Address: React.FC = () => {
         <input
           type="text"
           className="form-control border-secondary bg-secondary"
+          required
         />
       </div>
 
