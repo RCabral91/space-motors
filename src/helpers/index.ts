@@ -1,5 +1,9 @@
-export const myCustomHelper = (): null => null;
+export const setTitle = (title?: string): void => {
+  const appName = process.env.REACT_APP_APP_NAME ?? '';
 
-export const myCustomHelper2 = (): null => null;
-
-export const myCustomHelper3 = (): null => null;
+  if (title) {
+    document.title = `${title} | ${appName}`;
+  } else {
+    document.title = appName;
+  }
+};

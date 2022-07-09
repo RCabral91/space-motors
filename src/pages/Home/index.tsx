@@ -1,5 +1,7 @@
+import MainPage from 'components/MainPage';
+
 const Home: React.FC = () => {
-  return <h1>My React App</h1>;
+  return <MainPage />;
 };
 
 export default Home;

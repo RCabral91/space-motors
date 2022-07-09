@@ -1,5 +1,18 @@
-import Routes from 'Routes';
+// import GlobalStyle from 'styles/global';
 
-const App: React.FC = () => <Routes />;
+import { VehiclesProvider } from 'context/BaseContext';
+
+import Routes from './Routes';
+
+const App: React.FC = () => {
+  return (
+    <>
+      <VehiclesProvider>
+        <Routes />
+      </VehiclesProvider>
+      {/* <GlobalStyle /> */}
+    </>
+  );
+};
 
 export default App;
