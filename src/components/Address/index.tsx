@@ -1,21 +1,36 @@
+import { useVehicles } from 'context/BaseContext';
+
 /* eslint-disable jsx-a11y/label-has-associated-control */
 const Address: React.FC = () => {
+  const { isLoading, cep, setCep, number, street, city, state, getAddress } =
+    useVehicles();
+
   return (
-    <div className="col card bg-black p-3">
+    <div className="card bg-black p-3">
       <h3 className="text-warning fs-5">Endereço</h3>
-      <div className="col-md-6 text-white mt-2">
+      <div className="text-white mt-2">
         <label htmlFor="inputZip" className="form-label">
           CEP
         </label>
 
         <input
-          type="text"
+          type="search"
+          id="cep"
           className="form-control border-secondary bg-secondary"
+          onChange={(event) => setCep(event.target.value)}
           required
         />
+        <button
+          className="btn text-muted"
+          type="button"
+          onClick={() => getAddress(cep)}
+        >
+          <small>Pesquisar CEP</small>
+        </button>
+        <div>{isLoading ? 'Loading' : cep}</div>
       </div>
 
-      <div className="col text-white mt-2">
+      <div className="text-white mt-2">
         <label htmlFor="inputAddress" className="form-label">
           Logradouro
         </label>
@@ -25,7 +40,7 @@ const Address: React.FC = () => {
           id="inputAddress"
         />
       </div>
-      <div className="col text-white d-flex mt-2">
+      <div className="text-white d-flex mt-2">
         <div className="me-3">
           <label htmlFor="inputZip" className="form-label">
             Número
@@ -47,7 +62,7 @@ const Address: React.FC = () => {
           />
         </div>
       </div>
-      <div className="col text-white mt-2">
+      <div className="text-white mt-2">
         <label htmlFor="inputAddress" className="form-label">
           Bairro
         </label>
@@ -57,7 +72,7 @@ const Address: React.FC = () => {
           id="inputAddress"
         />
       </div>
-      <div className="col text-white mt-2">
+      <div className="text-white mt-2">
         <label htmlFor="inputCity" className="form-label">
           Cidade
         </label>
@@ -67,7 +82,7 @@ const Address: React.FC = () => {
           id="inputCity"
         />
       </div>
-      <div className="col text-white mt-2">
+      <div className="text-white mt-2">
         <label htmlFor="inputState" className="form-label">
           Estado
         </label>

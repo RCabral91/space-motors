@@ -37,10 +37,13 @@ const MainPage: React.FC = () => {
               placeholder="Digite o nome ou modelo do veículo"
             />
 
-            <div className="row row-cols-1 my-5 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 text-danger">
+            <div className="row g-3 row-cols-1 my-5 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 text-danger">
               {vehicles?.map((vehicle) => {
                 return (
-                  <div key={vehicle.name} className="col mt-auto">
+                  <div
+                    key={vehicle.name}
+                    className="col d-flex align-items-stretch"
+                  >
                     <Card vehicle={vehicle} />
                   </div>
                 );

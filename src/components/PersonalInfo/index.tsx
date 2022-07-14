@@ -6,7 +6,7 @@
 
 const PersonalInfo: React.FC = () => {
   return (
-    <form className="col card bg-black p-3">
+    <div className="col card bg-black p-3">
       <h3 className="text-warning fs-5">Informações Pessoais</h3>
 
       <div className="col text-white mt-2">
@@ -49,14 +49,14 @@ const PersonalInfo: React.FC = () => {
         </label>
         <div className="input-group has-validation">
           <input
-            type="number"
+            type="text"
             className="form-control bg-secondary border-secondary"
             id="validationDefault01"
             required
           />
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 

@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -13,14 +13,15 @@ import PersonalInfo from 'components/PersonalInfo';
 import loading from '../../assets/loading.gif';
 
 const Checkout: React.FC = () => {
+  const [activeAction, setActiveAction] = useState<'cc' | 'bank'>('cc');
   const { isLoading, getVehicle } = useVehicles();
   const { name } = useParams();
   const { handleSubmit } = useForm();
   const navigate = useNavigate();
 
   const onSubmit = useCallback(() => {
-    navigate('/confirmation');
-  }, [navigate]);
+    navigate('/confirmation', { state: { activeAction } });
+  }, [activeAction, navigate]);
 
   useEffect(() => {
     getVehicle(name ?? '');
@@ -36,21 +37,21 @@ const Checkout: React.FC = () => {
         ) : (
           <>
             <PageTitle title="Checkout" />
-            <form
-              className="row row-cols-1 row-cols-sm-0 row-cols-md-1 row-cols-lg-1 row-cols-xl-12 py-3"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <div className="col d-flex">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="row row-cols-1 row-cols-md-1 g-2 row-cols-lg-3 py-3">
                 <div className="col">
                   <PersonalInfo />
                 </div>
-                <div className="col mx-3">
+                <div className="col">
                   <Address />
                 </div>
                 <div className="col">
-                  <Payment />
+                  <Payment
+                    activeAction={activeAction}
+                    setActiveAction={setActiveAction}
+                  />
                   <div>
-                    <button type="submit" className="btn btn-warning w-100">
+                    <button type="submit" className="btn btn-warning p-3 w-100">
                       Finalizar compra
                     </button>
                   </div>
