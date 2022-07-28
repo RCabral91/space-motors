@@ -18,13 +18,16 @@ interface IVehiclesContextProps {
   currentPage: number;
   pageCount: number;
   errorMessage: string | null;
-  address: string | null;
-  street: string;
-  number: number;
-  neighborhood: string;
-  city: string;
-  state: string;
-  getAddress: (cep: string | null) => Promise<void>;
+  // address: string | null;
+  // street: string;
+  // number: number;
+  // neighborhood: string;
+  // city: string;
+  // state: string;
+  // setAddress: string;
+  cep: string;
+  setCep: React.Dispatch<React.SetStateAction<string>>;
+  getAddress: () => Promise<void>;
   getVehicle: (name: string) => Promise<void>;
   getVehicles: (page?: number, searchText?: string) => Promise<void>;
 }
@@ -103,8 +106,8 @@ export const VehiclesProvider: React.FC<{
     try {
       setLoading(true);
       const { data } = await apiCep.get(`/${cep}/json`);
+      console.log('response', data);
       const { logradouro, numero, bairro, cidade, uf } = data;
-
       setAddress(`${logradouro}, ${numero}, ${bairro}, ${cidade}, ${uf}`);
       setStreet(logradouro);
       setNumber(numero);
@@ -130,13 +133,14 @@ export const VehiclesProvider: React.FC<{
           currentPage,
           pageCount,
           errorMessage,
-          address,
-          street,
-          number,
-          neighborhood,
-          city,
-          state,
-          setAddress,
+          // address,
+          // street,
+          // number,
+          // neighborhood,
+          // city,
+          // state,
+          // setAddress,
+          cep,
           setCep,
           getAddress,
           getVehicle,
@@ -149,13 +153,14 @@ export const VehiclesProvider: React.FC<{
           currentPage,
           pageCount,
           errorMessage,
-          address,
-          street,
-          number,
-          neighborhood,
-          city,
-          state,
-          setAddress,
+          // address,
+          // street,
+          // number,
+          // neighborhood,
+          // city,
+          // state,
+          // setAddress,
+          cep,
           setCep,
           getAddress,
           getVehicle,

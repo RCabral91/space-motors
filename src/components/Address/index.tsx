@@ -2,8 +2,7 @@ import { useVehicles } from 'context/BaseContext';
 
 /* eslint-disable jsx-a11y/label-has-associated-control */
 const Address: React.FC = () => {
-  const { isLoading, cep, setCep, number, street, city, state, getAddress } =
-    useVehicles();
+  const { isLoading, cep, setCep, getAddress } = useVehicles();
 
   return (
     <div className="card bg-black p-3">
@@ -14,20 +13,19 @@ const Address: React.FC = () => {
         </label>
 
         <input
-          type="search"
+          name="cep"
+          type="number"
           id="cep"
+          value={cep}
+          maxLength={9}
           className="form-control border-secondary bg-secondary"
           onChange={(event) => setCep(event.target.value)}
           required
         />
-        <button
-          className="btn text-muted"
-          type="button"
-          onClick={() => getAddress(cep)}
-        >
+        <button className="btn text-muted" type="button" onClick={getAddress}>
           <small>Pesquisar CEP</small>
         </button>
-        <div>{isLoading ? 'Loading' : cep}</div>
+        {/* <div>{isLoading ? 'Loading' : address}</div> */}
       </div>
 
       <div className="text-white mt-2">
@@ -36,6 +34,7 @@ const Address: React.FC = () => {
         </label>
         <input
           type="text"
+          name="street"
           className="form-control bg-secondary border-secondary"
           id="inputAddress"
         />
@@ -46,6 +45,7 @@ const Address: React.FC = () => {
             Número
           </label>
           <input
+            name="number"
             type="number"
             className="form-control border-secondary bg-secondary"
             id="inputEmail4"
@@ -56,6 +56,7 @@ const Address: React.FC = () => {
             Complemento
           </label>
           <input
+            name="complement"
             type="text"
             className="form-control border-secondary bg-secondary"
             id="inputEmail4"
@@ -67,6 +68,7 @@ const Address: React.FC = () => {
           Bairro
         </label>
         <input
+          name="neighborhood"
           type="text"
           className="form-control bg-secondary border-secondary"
           id="inputAddress"
@@ -77,6 +79,7 @@ const Address: React.FC = () => {
           Cidade
         </label>
         <input
+          name="city"
           type="text"
           className="form-control border-secondary bg-secondary"
           id="inputCity"
@@ -87,6 +90,7 @@ const Address: React.FC = () => {
           Estado
         </label>
         <input
+          name="state"
           type="text"
           className="form-control border-secondary bg-secondary"
           id="inputState"
