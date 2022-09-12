@@ -3,14 +3,14 @@ import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { useVehicles } from 'context/BaseContext';
+import { useVehicles } from 'context/VehicleContext';
 
-import Address from 'components/Address';
 import PageTitle from 'components/PageTitle';
 import Payment from 'components/Payment';
 import PersonalInfo from 'components/PersonalInfo';
 
 import loading from '../../assets/loading.gif';
+import Address from '../../components/Address';
 
 const Checkout: React.FC = () => {
   const [activeAction, setActiveAction] = useState<'cc' | 'bank'>('cc');

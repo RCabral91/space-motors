@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useVehicles } from 'context/BaseContext';
+import { useVehicles } from 'context/VehicleContext';
 
 import Card from 'components/Card';
 import Pagination from 'components/Pagination';

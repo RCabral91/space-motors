@@ -1,6 +1,6 @@
 // import GlobalStyle from 'styles/global';
 
-import { VehiclesProvider } from 'context/BaseContext';
+import { VehiclesProvider } from 'context/VehicleContext';
 
 import Routes from './Routes';
 

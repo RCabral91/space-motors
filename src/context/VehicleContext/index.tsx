@@ -18,16 +18,6 @@ interface IVehiclesContextProps {
   currentPage: number;
   pageCount: number;
   errorMessage: string | null;
-  // address: string | null;
-  // street: string;
-  // number: number;
-  // neighborhood: string;
-  // city: string;
-  // state: string;
-  // setAddress: string;
-  cep: string;
-  setCep: React.Dispatch<React.SetStateAction<string>>;
-  getAddress: () => Promise<void>;
   getVehicle: (name: string) => Promise<void>;
   getVehicles: (page?: number, searchText?: string) => Promise<void>;
 }
@@ -45,13 +35,6 @@ export const VehiclesProvider: React.FC<{
   const [vehicles, setVehicles] = useState<VehiclesType[]>([]);
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const [address, setAddress] = useState('');
-  const [street, setStreet] = useState('');
-  const [number, setNumber] = useState(0);
-  const [neighborhood, setNeighborhood] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [cep, setCep] = useState('');
   const [isLoading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -59,7 +42,7 @@ export const VehiclesProvider: React.FC<{
     setErrorMessage(null);
     try {
       setLoading(true);
-      const response = await api.get(`/movies/${name}`);
+      const response = await api.get(`/vehicles/${name}`);
       setVehicle(response?.data);
       setLoading(false);
     } catch (e) {
@@ -98,31 +81,6 @@ export const VehiclesProvider: React.FC<{
     [],
   );
 
-  const apiCep = axios.create({ baseURL: 'http://viacep.com.br/ws' });
-
-  const getAddress = useCallback(async () => {
-    setErrorMessage(null);
-
-    try {
-      setLoading(true);
-      const { data } = await apiCep.get(`/${cep}/json`);
-      console.log('response', data);
-      const { logradouro, numero, bairro, cidade, uf } = data;
-      setAddress(`${logradouro}, ${numero}, ${bairro}, ${cidade}, ${uf}`);
-      setStreet(logradouro);
-      setNumber(numero);
-      setNeighborhood(bairro);
-      setCity(cidade);
-      setState(uf);
-      setCep(cep);
-    } catch (e) {
-      setAddress('Não foi possível encontrar seu endereço');
-    } finally {
-      setLoading(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cep]);
-
   return (
     <VehiclesContext.Provider
       value={useMemo(
@@ -133,16 +91,6 @@ export const VehiclesProvider: React.FC<{
           currentPage,
           pageCount,
           errorMessage,
-          // address,
-          // street,
-          // number,
-          // neighborhood,
-          // city,
-          // state,
-          // setAddress,
-          cep,
-          setCep,
-          getAddress,
           getVehicle,
           getVehicles,
         }),
@@ -153,16 +101,6 @@ export const VehiclesProvider: React.FC<{
           currentPage,
           pageCount,
           errorMessage,
-          // address,
-          // street,
-          // number,
-          // neighborhood,
-          // city,
-          // state,
-          // setAddress,
-          cep,
-          setCep,
-          getAddress,
           getVehicle,
           getVehicles,
         ],

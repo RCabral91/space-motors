@@ -1,31 +1,47 @@
-import { useVehicles } from 'context/BaseContext';
+import { useEffect } from 'react';
+
+import { useForm } from 'react-hook-form';
+import InputMask from 'react-input-mask';
+
+import useCep from 'hooks/useCep';
+
+import { AddressType } from '../../@types/Address';
 
 /* eslint-disable jsx-a11y/label-has-associated-control */
 const Address: React.FC = () => {
-  const { isLoading, cep, setCep, getAddress } = useVehicles();
+  const { register, watch, setValue } = useForm<AddressType>();
+  const { isLoading, isInvalidCep, lastCep, setLastCep, getAddress } =
+    useCep(setValue);
+
+  const cepValue = watch('cep');
+
+  useEffect(() => {
+    const sanitizedCEP = cepValue?.replaceAll(/\D/g, '');
+
+    if (sanitizedCEP?.length === 8 && cepValue !== lastCep) {
+      setLastCep(cepValue);
+      getAddress(sanitizedCEP);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cepValue]);
 
   return (
     <div className="card bg-black p-3">
       <h3 className="text-warning fs-5">Endereço</h3>
       <div className="text-white mt-2">
-        <label htmlFor="inputZip" className="form-label">
+        <label htmlFor="cep" className="form-label">
           CEP
         </label>
 
-        <input
-          name="cep"
-          type="number"
-          id="cep"
-          value={cep}
-          maxLength={9}
+        <InputMask
+          type="text"
+          {...register('cep')}
+          mask="99999-999"
           className="form-control border-secondary bg-secondary"
-          onChange={(event) => setCep(event.target.value)}
           required
         />
-        <button className="btn text-muted" type="button" onClick={getAddress}>
-          <small>Pesquisar CEP</small>
-        </button>
-        {/* <div>{isLoading ? 'Loading' : address}</div> */}
+
+        {!isLoading && isInvalidCep && 'CEP Inválido'}
       </div>
 
       <div className="text-white mt-2">
@@ -34,7 +50,8 @@ const Address: React.FC = () => {
         </label>
         <input
           type="text"
-          name="street"
+          placeholder="logradouro"
+          {...register('logradouro')}
           className="form-control bg-secondary border-secondary"
           id="inputAddress"
         />
@@ -45,10 +62,11 @@ const Address: React.FC = () => {
             Número
           </label>
           <input
-            name="number"
-            type="number"
+            type="text"
+            placeholder="numero"
             className="form-control border-secondary bg-secondary"
             id="inputEmail4"
+            required
           />
         </div>
         <div>
@@ -56,8 +74,8 @@ const Address: React.FC = () => {
             Complemento
           </label>
           <input
-            name="complement"
             type="text"
+            placeholder="complemento"
             className="form-control border-secondary bg-secondary"
             id="inputEmail4"
           />
@@ -68,8 +86,9 @@ const Address: React.FC = () => {
           Bairro
         </label>
         <input
-          name="neighborhood"
+          {...register('bairro')}
           type="text"
+          placeholder="bairro"
           className="form-control bg-secondary border-secondary"
           id="inputAddress"
         />
@@ -79,8 +98,9 @@ const Address: React.FC = () => {
           Cidade
         </label>
         <input
-          name="city"
+          {...register('cidade')}
           type="text"
+          placeholder="cidade"
           className="form-control border-secondary bg-secondary"
           id="inputCity"
         />
@@ -90,8 +110,9 @@ const Address: React.FC = () => {
           Estado
         </label>
         <input
-          name="state"
+          {...register('estado')}
           type="text"
+          placeholder="estado"
           className="form-control border-secondary bg-secondary"
           id="inputState"
         />
